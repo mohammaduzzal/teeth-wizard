@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 
 const FeedBack = ({ feedbackData }) => {
-    console.log(feedbackData);
+    // console.log(feedbackData);
     return (
         <>
         <h2 className="font-bold text-xl mt-5">Happy Client</h2>

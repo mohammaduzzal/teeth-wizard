@@ -1,5 +1,7 @@
 /* eslint-disable react/prop-types */
 
+import { NavLink } from "react-router-dom";
+
 const ServiceCard = ({service}) => {
     // console.log(service);
  
@@ -20,8 +22,9 @@ const ServiceCard = ({service}) => {
           </h2>
           <p title={description}>{description.slice(0,100)}....</p>
           <div className="card-actions justify-end">
+            <NavLink to={`/details/${id}`}>
             <button className="badge badge-outline bg-primary text-white font-bold">Checkout More</button>
-            
+            </NavLink>
           </div>
         </div>
       </div>
