@@ -1,9 +1,29 @@
+import { useContext } from "react";
+import { AuthContext } from "../AuthProvider/AuthProvider";
 
 
+// eslint-disable-next-line no-unused-vars
 const Modal = () => {
+    
     const handleSubmit = e =>{
         e.preventDefault()
-        console.log(e);
+        // console.log(e); 
+       
+        const fName = e.target.fName.value;
+        const lName = e.target.lName.value;
+        const email = e.target.email.value;
+   
+        const info = {
+            fName,lName,email
+        }
+        let data = []
+        const localData = localStorage.getItem('appointment')
+        if(localData){
+            data = JSON.parse(localData)
+           
+        }
+        data.push(info)
+        localStorage.setItem('appointment', JSON.stringify(data))
     }
 
 
@@ -29,7 +49,7 @@ const Modal = () => {
                         <input
                             type="text"
                             placeholder="Type here"
-                            className="input input-bordered input-primary w-full max-w-xs" name="email" /> <br />
+                            className="input input-bordered input-primary w-full max-w-xs" name="email"  /> <br />
                         Phone number
                         <input
                             type="text"
