@@ -1,11 +1,12 @@
 import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 
 
 const Register = () => {
     const {handleRegister,manageProfile} = useContext(AuthContext)
     const [error, setError] = useState('')
+    const navigate = useNavigate()
 
 
     const handleSubmit = e =>{
@@ -36,6 +37,7 @@ const Register = () => {
         handleRegister(email,password)
         .then(()=>{
           manageProfile(name,image)
+          navigate('/')
         })
     }
 

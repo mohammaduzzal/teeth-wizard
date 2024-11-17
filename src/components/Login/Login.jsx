@@ -1,10 +1,13 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../AuthProvider/AuthProvider";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Login = () => {
     const {handleGoogleLogin,handleLogin} = useContext(AuthContext)
     const [error, setError] = useState('')
+    const location = useLocation()
+    // console.log(location);
+    const navigate = useNavigate()
     
 
     const handleSubmit = e =>{
@@ -12,12 +15,24 @@ const Login = () => {
         const email = e.target.email.value;
         const password = e.target.password.value;
        
-        console.log( 'email :', email, 'password', password );
+        // console.log( 'email :', email, 'password', password );
         handleLogin(email,password)
-        .then(()=>{})
+        .then(()=>{
+          navigate(location.state?.from || '/')
+        })
         .catch((error)=>{
           setError(error.message )
         })
+    }
+    const handleGoogle = ()=>{
+      handleGoogleLogin()
+      .then(()=>{
+        navigate(location.state?.from || '/')
+      })
+      .catch((error)=>{
+        setError(error.message)
+      })
+
     }
 
 
@@ -53,7 +68,7 @@ const Login = () => {
               
               <p className="text-center">or</p>
               
-              <button onClick={handleGoogleLogin} className="btn btn-primary block items-center">Login with google</button>
+              <button onClick={handleGoogle} className="btn btn-primary block items-center">Login with google</button>
             </form>
             <p className="ml-4 mb-4">New to this website  ? please <Link className="underline" to='/register'>Register</Link></p>
           </div>

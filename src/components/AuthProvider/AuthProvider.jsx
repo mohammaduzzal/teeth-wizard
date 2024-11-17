@@ -2,11 +2,14 @@ import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged,
 import { createContext, useEffect, useState } from "react";
 import auth from "../../firebase/Firebase.config";
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const AuthContext = createContext()
 
+// eslint-disable-next-line react/prop-types
 const AuthProvider = ({children}) => {
     const [user, setUser] = useState(null)
     const googleProvider = new GoogleAuthProvider();
+    const [loading, setLoading] = useState(true)
 
     const handleRegister = (email,password)=>{
         return createUserWithEmailAndPassword(auth,email,password)
@@ -38,7 +41,9 @@ const AuthProvider = ({children}) => {
             else{
                 setUser(null)
             }
+            setLoading(false)
         })
+        
         return ()=>{
             unSubscribe()
         }
@@ -51,7 +56,8 @@ const AuthInfo ={
     handleGoogleLogin,
     manageProfile,
     user,
-    setUser
+    setUser,
+    loading
 }
 
 
