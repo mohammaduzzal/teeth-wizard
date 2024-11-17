@@ -1,9 +1,11 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import { Link } from "react-router-dom";
 
 const Login = () => {
     const {handleGoogleLogin,handleLogin} = useContext(AuthContext)
+    const [error, setError] = useState('')
+    
 
     const handleSubmit = e =>{
         e.preventDefault()
@@ -12,6 +14,10 @@ const Login = () => {
        
         console.log( 'email :', email, 'password', password );
         handleLogin(email,password)
+        .then(()=>{})
+        .catch((error)=>{
+          setError(error.message )
+        })
     }
 
 
@@ -42,6 +48,7 @@ const Login = () => {
              
               <div className="form-control mt-6">
                 <button className="btn btn-primary">Login</button>
+                {error && <p className="text-red-600">{error}</p>}
               </div>
               
               <p className="text-center">or</p>
